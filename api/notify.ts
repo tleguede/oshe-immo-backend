@@ -8,11 +8,13 @@ export default async function handler(
 
     corsHandler(request, response, async () => {
         try {
-            const body = JSON.parse(request.body);
-
             console.log("====== body")
             console.log(typeof request.body)
             console.log(request.body)
+
+            const body = request.body;
+
+
             console.log("====== body")
             console.log(body)
 
