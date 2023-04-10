@@ -10,6 +10,10 @@ export default async function handler(
         try {
             const body = JSON.parse(request.body);
 
+            console.log("====== body")
+            console.log(typeof request.body)
+            console.log(request.body)
+            console.log("====== body")
             console.log(body)
 
             const snap = await messaging.sendMulticast({
@@ -34,6 +38,7 @@ export default async function handler(
                 result: snap
             });
         } catch (error) {
+            console.log(error);
             response.status(400).json({
                 body: request.body,
                 query: request.query,
