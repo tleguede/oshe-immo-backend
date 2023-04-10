@@ -10,6 +10,8 @@ export default async function handler(
 
         const body = JSON.parse(request.body);
 
+        console.log(body)
+
         const snap = await messaging.sendMulticast({
             tokens: [...body?.tokens],
             data: {
