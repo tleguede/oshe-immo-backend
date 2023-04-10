@@ -39,6 +39,7 @@ export default async function handler(
                 query: request.query,
                 cookies: request.cookies,
                 headers: request.headers,
+                error
             });
         }
 
