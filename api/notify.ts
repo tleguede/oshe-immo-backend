@@ -23,8 +23,7 @@ export default async function handler(
                 data: {
                     title: body?.title,
                     description: body?.description,
-                    ...body?.data,
-
+                    data: JSON.stringify(body?.data)
                 },
                 notification: {
                     title: body?.title,
