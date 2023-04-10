@@ -7,32 +7,41 @@ export default async function handler(
 ) {
 
     corsHandler(request, response, async () => {
+        try {
+            const body = JSON.parse(request.body);
 
-        const body = JSON.parse(request.body);
+            console.log(body)
 
-        console.log(body)
+            const snap = await messaging.sendMulticast({
+                tokens: [...body?.tokens],
+                data: {
+                    title: body?.title,
+                    description: body?.description,
+                    ...body?.data,
 
-        const snap = await messaging.sendMulticast({
-            tokens: [...body?.tokens],
-            data: {
-                title: body?.title,
-                description: body?.description,
-                ...body?.data,
+                },
+                notification: {
+                    title: body?.title,
+                    body: body?.description,
+                }
+            });
 
-            },
-            notification: {
-                title: body?.title,
-                body: body?.description,
-            }
-        });
+            response.status(200).json({
+                body: request.body,
+                query: request.query,
+                cookies: request.cookies,
+                headers: request.headers,
+                result: snap
+            });
+        } catch (error) {
+            response.status(400).json({
+                body: request.body,
+                query: request.query,
+                cookies: request.cookies,
+                headers: request.headers,
+            });
+        }
 
-        response.status(200).json({
-            body: request.body,
-            query: request.query,
-            cookies: request.cookies,
-            headers: request.headers,
-            result: snap
-        });
     })
 
 
